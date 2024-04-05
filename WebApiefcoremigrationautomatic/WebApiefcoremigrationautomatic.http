@@ -1,0 +1,6 @@
+@WebApiefcoremigrationautomatic_HostAddress = http://localhost:5222
+
+GET {{WebApiefcoremigrationautomatic_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

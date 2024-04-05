@@ -1,0 +1,28 @@
+version: '3.4'
+
+networks:
+  demoappnetowrk:
+
+services:
+  mssql-container:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: mssql-container
+    environment:
+      - ACCEPT_EULA=Y   # Accept the End-User License Agreement
+      - SA_PASSWORD=MyDemoPassword@2022 # Set the 'sa' user password
+    ports:
+      - "8002:1433"
+    networks:
+        - demoappnetowrk
+  webapiefcoremigrationautomatic:
+    container_name: WebApiContainer
+    image: ${DOCKER_REGISTRY-}webapiefcoremigrationautomatic
+    ports:
+        - 8001:80 
+    build:
+      context: .
+      dockerfile: WebApiefcoremigrationautomatic/Dockerfile
+    depends_on:
+        - mssql-container
+    networks:
+        - demoappnetowrk
